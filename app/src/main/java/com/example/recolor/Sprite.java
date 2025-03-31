@@ -96,7 +96,20 @@ public class Sprite {
         return frames.size();
     }
     public void update (int ms) {
+        moveToTarget();
+    }
+    private void moveToTarget(){
+        if (x < targetX){
+            x += Math.min(speed, targetX - x);
+        }else if (x > targetX){
+            x -= Math.min(speed, x - targetX);
+        }
 
+        if (y < targetY){
+            y += Math.min(speed, targetY - y);
+        }else if (y > targetY){
+            y -= Math.min(speed, y - targetY);
+        }
     }
     public void move(double x, double y){
         this.x = x;
