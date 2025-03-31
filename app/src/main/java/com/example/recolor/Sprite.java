@@ -10,6 +10,9 @@ import java.util.List;
 
 public class Sprite {
     private Bitmap bitmap;
+    private double speed;
+    private double targetX;
+    private double targetY;
     private List<Rect> frames;
     private int frameWidth;
     private int frameHeight;
@@ -99,8 +102,10 @@ public class Sprite {
         this.x = x;
         this.y = y;
     }
-    public void tweenPos(double x, double y, double time){
-
+    public void tweenPos(double x, double y, double speed){
+        this.targetX = x;
+        this.targetY = y;
+        this.speed = speed;
     }
     public void draw (Canvas canvas) {
         Paint p = new Paint();
