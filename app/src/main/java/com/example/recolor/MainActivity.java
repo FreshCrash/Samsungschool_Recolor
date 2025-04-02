@@ -1,6 +1,5 @@
 package com.example.recolor;
 
-import android.media.metrics.Event;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -14,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
     GestureDetector gestureDetector;
 
-
+    Tile[][] field;
 
     float x1, y1, x2, y2;
     @Override
@@ -63,5 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 }
         }
         return false;
+    }
+    void loadLevel(){
+
     }
 }
