@@ -3,6 +3,7 @@ package com.example.recolor;
 import android.media.metrics.Event;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     GestureDetector gestureDetector;
+
+
 
     float x1, y1, x2, y2;
     @Override
@@ -43,11 +46,19 @@ public class MainActivity extends AppCompatActivity {
                 if(totalMagnitude >= 10){
                     if(magnitudeX > magnitudeY){
                         if(x1 - x2 > 0){
-
+                            Toast.makeText(this, "Left", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(this, "Right", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else {
-
+                        if(y1 - y2 > 0){
+                            Toast.makeText(this, "Up", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(this, "Down", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
         }
