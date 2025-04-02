@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
     GestureDetector gestureDetector;
 
     Tile[][] field;
-
     float x1, y1, x2, y2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
