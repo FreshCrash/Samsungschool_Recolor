@@ -41,6 +41,17 @@ public class Sprite {
         this.frameHeight = initialFrame.height();
         this.padding = 20;
     }
+    public Sprite(double x, double y, Bitmap bitmap) {
+        this.x = x;
+        this.y = y;
+        this.bitmap = bitmap;
+        this.frames = new ArrayList<Rect>();
+        this.bitmap = bitmap;
+        this.timeForCurrentFrame = 0.0;
+        this.frameTime = 0.1;
+        this.currentFrame = 0;
+        this.padding = 20;
+    }
     public void setX(double x) {
         this.x = x;
     }

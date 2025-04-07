@@ -21,6 +21,11 @@ public class GameView extends View {
     Tile[][] field;
     public GameView(Context context) {
         super(context);
+        try {
+            loadLevel("test_level.csv");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -67,9 +72,8 @@ public class GameView extends View {
         }
         return false;
     }
-    void loadLevel(File file) throws IOException {
-        CSVReader reader = new CSVReader(new FileReader(file));
+    void loadLevel(String filename) throws IOException {
+        CSVReader reader = new CSVReader(new FileReader(filename));
         List fieldStr = reader.readAll();
-
     }
 }
