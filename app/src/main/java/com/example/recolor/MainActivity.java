@@ -1,21 +1,14 @@
 package com.example.recolor;
 
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.widget.Toast;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import com.opencsv.CSVReader;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     GestureDetector gestureDetector;
@@ -36,9 +29,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void loadLevel(File file) throws IOException {
-        CSVReader reader = new CSVReader(new FileReader(file));
-        List myEntries = reader.readAll();
-
-    }
 }

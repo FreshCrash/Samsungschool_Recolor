@@ -6,6 +6,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.opencsv.CSVReader;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
+
 public class GameView extends View {
 
     private int viewWidth;
@@ -59,5 +66,10 @@ public class GameView extends View {
                 }
         }
         return false;
+    }
+    void loadLevel(File file) throws IOException {
+        CSVReader reader = new CSVReader(new FileReader(file));
+        List fieldStr = reader.readAll();
+
     }
 }
