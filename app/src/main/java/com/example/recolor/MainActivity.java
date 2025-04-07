@@ -9,6 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import com.opencsv.CSVReader;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     GestureDetector gestureDetector;
@@ -62,7 +69,9 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-    void loadLevel(){
+    void loadLevel(File file) throws IOException {
+        CSVReader reader = new CSVReader(new FileReader(file));
+        List myEntries = reader.readAll();
 
     }
 }
