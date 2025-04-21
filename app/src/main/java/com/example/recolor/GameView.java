@@ -1,6 +1,7 @@
 package com.example.recolor;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.View;
@@ -8,21 +9,28 @@ import android.widget.Toast;
 
 import com.opencsv.CSVReader;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class GameView extends View {
 
+    private static final Log log = LogFactory.getLog(GameView.class);
     private int viewWidth;
     private int viewHeight;
     float x1, y1, x2, y2;
+    int playerx, playery;
+    Player player;
     Tile[][] field;
     public GameView(Context context) {
         super(context);
         try {
-            loadLevel("test_level.csv");
+            loadLevel(R.raw.test_level);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -72,8 +80,31 @@ public class GameView extends View {
         }
         return false;
     }
-    void loadLevel(String filename) throws IOException {
-        CSVReader reader = new CSVReader(new FileReader(filename));
-        List fieldStr = reader.readAll();
+    void loadLevel(int resfile) throws IOException {
+        InputStream inputStream = getResources().openRawResource(resfile);
+        CSVFile csvFile = new CSVFile(inputStream);
+        List<String[]> fieldStr = csvFile.read();
+        log.info(fieldStr.get(0).toString());
+        for(int ri = 0; ri < fieldStr.size(); ri++){
+            String[] row = fieldStr.get(ri);
+            for(int j = 0; j < row.length; j++){
+                String elem = row[j];
+                String k1;
+                String k2;
+                int underscoreid = elem.indexOf('_');
+                if(underscoreid < 0){
+                    k1 = elem;
+                }else {
+                    k1 = elem.substring(0, underscoreid);
+                    k2 = elem.substring(underscoreid);
+                }
+                if(k1.equals("Block")){
+                    field[ri][j] = new Tile(ri, j, BitmapFactory.decodeResource(getResources(), R.drawable.block), "Block");
+                }else if (k1.equals("Player")){
+                    player = new Player(0, 0, BitmapFactory.decodeResource(getResources(), R.drawable.player), Tile.COLOR.YELLOW, ri, j);
+                    field[ri][j] = new Tile(ri, j, BitmapFactory.decodeResource(getResources(), R.drawable.block));
+                }
+            }
+        }
     }
 }

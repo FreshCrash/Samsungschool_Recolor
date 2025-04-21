@@ -13,11 +13,17 @@ public class Tile extends Sprite {
         static final int BLUE = 3;
     }
 
-    public Tile(double x, double y, double velocityX, double velocityY, Rect initialFrame, Bitmap bitmap) {
+    public Tile(double x, double y, double velocityX, double velocityY, Rect initialFrame, Bitmap bitmap, String type) {
         super(x, y, velocityX, velocityY, initialFrame, bitmap);
+        this.type = type;
     }
     public Tile(double x, double y, Bitmap bitmap) {
         super(x, y, bitmap);
+        this.type = "None";
+    }
+    public Tile(double x, double y, Bitmap bitmap, String type) {
+        super(x, y, bitmap);
+        this.type = type;
     }
 
     public void setColor(int color){
