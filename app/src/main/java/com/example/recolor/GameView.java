@@ -3,12 +3,14 @@ package com.example.recolor;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.os.CountDownTimer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
 import com.opencsv.CSVReader;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -22,7 +24,9 @@ public class GameView extends View {
 
     private static final Log log = LogFactory.getLog(GameView.class);
     private int viewWidth;
+    final int tileWidth = 90;
     private int viewHeight;
+    private int updateInterval = 30;
     float x1, y1, x2, y2;
     int playerx, playery;
     Player player;
@@ -34,6 +38,15 @@ public class GameView extends View {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        Timer t = new Timer();
+        t.start();
+    }
+
+    protected void update () {
+        if (player != null){
+            player.update(updateInterval);
+        }
+        invalidate();
     }
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -44,6 +57,10 @@ public class GameView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+//        canvas.drawARGB(250, 255, 255, 255); // background color
+        if (player != null){
+            player.draw(canvas);
+        }
     }
 
     @Override
@@ -78,7 +95,19 @@ public class GameView extends View {
                     }
                 }
         }
-        return false;
+        return true;
+    }
+    class Timer extends CountDownTimer {
+        public Timer() {
+            super(Integer.MAX_VALUE, updateInterval);
+        }
+        @Override
+        public void onTick(long millisUntilFinished) {
+            update();
+        }
+        @Override
+        public void onFinish() {
+        }
     }
     void loadLevel(int resfile) throws IOException {
         InputStream inputStream = getResources().openRawResource(resfile);
@@ -99,10 +128,10 @@ public class GameView extends View {
                     k2 = elem.substring(underscoreid);
                 }
                 if(k1.equals("Block")){
-                    field[ri][j] = new Tile(ri, j, BitmapFactory.decodeResource(getResources(), R.drawable.block), "Block");
+                    field[ri][j] = new Tile(tileWidth * ri, tileWidth * j, BitmapFactory.decodeResource(getResources(), R.drawable.block), "Block");
                 }else if (k1.equals("Player")){
-                    player = new Player(0, 0, BitmapFactory.decodeResource(getResources(), R.drawable.player), Tile.COLOR.YELLOW, ri, j);
-                    field[ri][j] = new Tile(ri, j, BitmapFactory.decodeResource(getResources(), R.drawable.block));
+                    player = new Player(tileWidth * ri, tileWidth * j, BitmapFactory.decodeResource(getResources(), R.drawable.player), Tile.COLOR.YELLOW, ri, j);
+                    field[ri][j] = new Tile(tileWidth * ri, tileWidth * j, BitmapFactory.decodeResource(getResources(), R.drawable.block));
                 }
             }
         }
