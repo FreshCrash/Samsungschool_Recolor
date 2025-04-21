@@ -46,7 +46,7 @@ public class Sprite {
         this.y = y;
         this.bitmap = bitmap;
         this.frames = new ArrayList<Rect>();
-        this.bitmap = bitmap;
+        this.frames.add(new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
         this.timeForCurrentFrame = 0.0;
         this.frameTime = 0.1;
         this.currentFrame = 0;
