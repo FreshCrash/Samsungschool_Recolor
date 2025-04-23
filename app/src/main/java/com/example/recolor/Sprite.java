@@ -11,8 +11,8 @@ import java.util.List;
 public class Sprite {
     private Bitmap bitmap;
     private double speed;
-    private double targetX;
-    private double targetY;
+    public double targetX;
+    public double targetY;
     private List<Rect> frames;
     private int frameWidth;
     private int frameHeight;
@@ -141,5 +141,8 @@ public class Sprite {
     }
     public boolean intersect (Sprite s) {
         return getBoundingBoxRect().intersect(s.getBoundingBoxRect());
+    }
+    public void setSpeed(double speed){
+        this.speed = speed;
     }
 }

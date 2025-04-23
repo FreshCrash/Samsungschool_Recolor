@@ -8,14 +8,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.opencsv.CSVReader;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.File;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -81,22 +78,36 @@ public class GameView extends View {
                     if(magnitudeX > magnitudeY){
                         if(x1 - x2 > 0){
                             Toast.makeText(this.getContext(), "Left", Toast.LENGTH_SHORT).show();
+                            movePlayer(-1, 0);
                         }
                         else {
                             Toast.makeText(this.getContext(), "Right", Toast.LENGTH_SHORT).show();
+                            movePlayer(1, 0);
                         }
                     }
                     else {
                         if(y1 - y2 > 0){
                             Toast.makeText(this.getContext(), "Up", Toast.LENGTH_SHORT).show();
+                            movePlayer(0, -1);
                         }
                         else {
                             Toast.makeText(this.getContext(), "Down", Toast.LENGTH_SHORT).show();
+                            movePlayer(0, 1);
                         }
                     }
                 }
         }
         return true;
+    }
+    private void movePlayer(int dx, int dy){
+        if(!field[playerx + dx][playery + dy].type.equals("Block")){
+            playerx += dx;
+            playery += dy;
+            if(player != null){
+                player.SetTilePos(playerx, playery);
+            }
+            movePlayer(dx, dy);
+        }
     }
     class Timer extends CountDownTimer {
         public Timer() {
@@ -114,7 +125,9 @@ public class GameView extends View {
         InputStream inputStream = getResources().openRawResource(resfile);
         CSVFile csvFile = new CSVFile(inputStream);
         List<String[]> fieldStr = csvFile.read();
-        log.info(fieldStr.get(0).toString());
+        int sizey = fieldStr.size();
+        int sizex = fieldStr.get(0).length;
+        field = new Tile[sizey][sizex];
         for(int ri = 0; ri < fieldStr.size(); ri++){
             String[] row = fieldStr.get(ri);
             for(int j = 0; j < row.length; j++){

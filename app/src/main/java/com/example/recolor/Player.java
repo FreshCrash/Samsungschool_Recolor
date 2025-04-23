@@ -17,5 +17,9 @@ public class Player extends Tile{
         this.tileY = tileY;
         this.color = color;
     }
+    @Override
+    public void update(int ms){
+        super.update(ms);
+    }
 
 }

@@ -5,6 +5,7 @@ import android.graphics.Rect;
 
 public class Tile extends Sprite {
     String type;
+    int tileX, tileY;
     int color;
     static class COLOR{
         static final int YELLOW = 0;
@@ -38,5 +39,28 @@ public class Tile extends Sprite {
 
     public int getColor() {
         return color;
+    }
+    public int getTileX() {
+        return tileX;
+    }
+
+    public void setTileX(int tileX) {
+        this.tileX = tileX;
+    }
+
+    public int getTileY() {
+        return tileY;
+    }
+
+    public void setTileY(int tileY) {
+        this.tileY = tileY;
+    }
+    public void SetTilePos(int tileX, int tileY){
+        this.tileX = tileX;
+        this.tileY = tileY;
+    }
+    public void SetTargetByTilePos(int tileSize, int offsetX, int offsetY){
+        this.targetX = offsetX + (tileSize * tileX);
+        this.targetY = offsetY + (tileSize * tileY);
     }
 }
