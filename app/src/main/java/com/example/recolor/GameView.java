@@ -98,6 +98,16 @@ public class GameView extends View {
         }
         return true;
     }
+    private void movePlayer(int dx, int dy){
+        if(field[playerx + dx][playery + dy].type != "Block"){
+            playerx += dx;
+            playery += dy;
+            if(player != null){
+                player.SetTilePos(playerx, playery);
+            }
+            movePlayer(dx, dy);
+        }
+    }
     class Timer extends CountDownTimer {
         public Timer() {
             super(Integer.MAX_VALUE, updateInterval);
@@ -114,7 +124,9 @@ public class GameView extends View {
         InputStream inputStream = getResources().openRawResource(resfile);
         CSVFile csvFile = new CSVFile(inputStream);
         List<String[]> fieldStr = csvFile.read();
-        log.info(fieldStr.get(0).toString());
+        int sizey = fieldStr.size();
+        int sizex = fieldStr.get(0).length;
+        field = new Tile[sizey][sizex];
         for(int ri = 0; ri < fieldStr.size(); ri++){
             String[] row = fieldStr.get(ri);
             for(int j = 0; j < row.length; j++){
