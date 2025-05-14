@@ -1,10 +1,12 @@
 package com.example.recolor;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.CountDownTimer;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,6 +35,8 @@ public class GameView extends View {
     Tile[][] field;
     public GameView(Context context) {
         super(context);
+        totalSensors = 0;
+        activatedSensors = 0;
         try {
             loadLevel(R.raw.test_level);
         } catch (IOException e) {
@@ -58,11 +62,6 @@ public class GameView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 //        canvas.drawARGB(250, 255, 255, 255);
-        Paint p = new Paint();
-        p.setAntiAlias(true);
-        p.setTextSize(120.0f);
-        p.setColor(Color.WHITE);
-        canvas.drawText(activatedSensors+"/"+totalSensors, viewWidth - 100, 70, p);
         if (player != null){
             player.draw(canvas);
 //            log.debug("Player updated");
@@ -74,6 +73,11 @@ public class GameView extends View {
                 }
             }
         }
+        Paint p = new Paint();
+        p.setAntiAlias(true);
+        p.setTextSize(120.0f);
+        p.setColor(Color.WHITE);
+        canvas.drawText(activatedSensors+"/"+totalSensors, viewWidth / 2, 70, p);
 
     }
 
@@ -178,10 +182,15 @@ public class GameView extends View {
                     field[i][j] = new Tile(tileWidth * i, tileWidth * j, BitmapFactory.decodeResource(getResources(), R.drawable.block), "Block");
                 }else if (blockType.equals("Player")){
                     log.info("Player loaded");
-                    player = new Player(tileWidth * i, tileWidth * j, BitmapFactory.decodeResource(getResources(), R.drawable.player), Tile.COLOR.YELLOW, i, j);
-                    field[i][j] = new Tile(tileWidth * i, tileWidth * j, BitmapFactory.decodeResource(getResources(), R.drawable.block));
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.player);
+                    log.info(bitmap.getHeight());
+                    player = new Player(tileWidth * i, tileWidth * j, new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()), bitmap, Tile.COLOR.YELLOW, i, j);
+                    //field[i][j] = new Tile(tileWidth * i, tileWidth * j, BitmapFactory.decodeResource(getResources(), R.drawable.block));
+
                 }else if (blockType.equals("Detector")){
-                    field[i][j] = new Tile(tileWidth * i, tileWidth * j, BitmapFactory.decodeResource(getResources(), R.drawable.colorblock));
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.colorblock);
+                    totalSensors += 1;
+                    field[i][j] = new Tile(tileWidth * i, tileWidth * j, new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()), bitmap, "Sensor");
                     if(blockColor.equals("Yellow")){
                         field[i][j].targetColor = Tile.COLOR.YELLOW;
                     }

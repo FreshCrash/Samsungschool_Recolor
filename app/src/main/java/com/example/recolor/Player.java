@@ -5,9 +5,12 @@ import android.graphics.Rect;
 
 public class Player extends Tile{
     int tileX, tileY, color;
-    public Player(double x, double y, double velocityX, double velocityY, Rect initialFrame, Bitmap bitmap, int color) {
-        super(x, y, velocityX, velocityY, initialFrame, bitmap, "Player");
+    public Player(double x, double y, Rect initialFrame, Bitmap bitmap, int color, int tileX, int tileY) {
+        super(x, y, 0, 0, initialFrame, bitmap, "Player");
         this.color = color;
+        this.tileX = tileX;
+        this.tileY = tileY;
+        this.type = "Player";
     }
 
     public Player(double x, double y, Bitmap bitmap, int color, int tileX, int tileY) {

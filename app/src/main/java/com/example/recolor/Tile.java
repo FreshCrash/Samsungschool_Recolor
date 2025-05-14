@@ -19,6 +19,10 @@ public class Tile extends Sprite {
         super(x, y, velocityX, velocityY, initialFrame, bitmap);
         this.type = type;
     }
+    public Tile(double x, double y, Rect initialFrame, Bitmap bitmap, String type) {
+        super(x, y, 0, 0, initialFrame, bitmap);
+        this.type = type;
+    }
     public Tile(double x, double y, Bitmap bitmap) {
         super(x, y, bitmap);
         this.type = "None";
