@@ -7,6 +7,7 @@ public class Tile extends Sprite {
     String type;
     int tileX, tileY;
     int color;
+    public int targetColor;
     static class COLOR{
         static final int YELLOW = 0;
         static final int GREEN = 1;

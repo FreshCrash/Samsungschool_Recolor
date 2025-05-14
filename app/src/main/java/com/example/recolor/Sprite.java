@@ -134,6 +134,7 @@ public class Sprite {
     public void draw (Canvas canvas) {
         Paint p = new Paint();
         Rect destination = new Rect((int)x, (int)y, (int)(x + frameWidth), (int)(y + frameHeight));
+        System.out.println(frames.get(currentFrame).bottom);
         canvas.drawBitmap(bitmap, frames.get(currentFrame), destination,  p);
     }
     public Rect getBoundingBoxRect () {

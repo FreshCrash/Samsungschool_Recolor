@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-04-07T16:32:24.853542Z">
+        <DropdownSelection timestamp="2025-05-14T15:38:22.784212500Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=D:\samsung1.2\avd\Pixel_Fold_API_34.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=D:\sumsung1.2\avd\Pixel_2_API_34.avd" />
             </handle>
           </Target>
         </DropdownSelection>
